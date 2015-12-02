@@ -9,7 +9,7 @@ let inherit (nixpkgs.haskell) lib;
     };
     extendHaskellPackages = with lib; haskellPackages: haskellPackages.override {
       packageSetConfig = nixpkgs.callPackage
-        <nixpkgs/pkgs/development/haskell-modules/configuration-lts-3.10.nix>
+        "${nixpkgs.path}/pkgs/development/haskell-modules/configuration-lts-3.13.nix"
         {};
       overrides = self: super: {
         ########################################################################
@@ -38,8 +38,8 @@ let inherit (nixpkgs.haskell) lib;
           jailbreak = true;
         });
         attoparsec = overrideCabal super.attoparsec (drv: {
-          version = "0.13.0.0";
-          sha256 = "12b4xi6nlnhpwz8apn4mk880mkhcv1sfvf4j3z1h5dgkadi2zgbi";
+          version = "0.13.0.1";
+          sha256 = "ce880acb45142eafd872e01d9af57d8dbb95c9f2b9a27f01ca9912ba4e9ef932";
         });
         case-insensitive = overrideCabal super.case-insensitive (drv: {
           version = "1.2.0.4";
@@ -74,10 +74,8 @@ let inherit (nixpkgs.haskell) lib;
           sha256 = "0hp6vf4zxsw6vz6lj505xihmnfhgjp39c9q7nyzlgcmps3xx6a5r";
         });
         primitive = overrideCabal super.primitive (drv: {
-          version = "0.5.4.0";
-          sha256 = "05gdgj383xdrdkhxh26imlvs8ji0z28ny38ms9snpvv5i8l2lg10";
-          revision = "1";
-          editedCabalFile = "df0a129c168c61a06a02123898de081b1d0b254cce6d7ab24b8f43ec37baef9e";
+          version = "0.6.1.0";
+          sha256 = "93731fa72eaf74e8e83453f080828e18cec9fbc82bee91b49ba8b61c043d38c8";
           });
         scientific = overrideCabal super.scientific (drv: {
           version = "0.3.3.3";
@@ -105,7 +103,7 @@ let inherit (nixpkgs.haskell) lib;
 
       }) // {
         ########################################################################
-        # Other packages
+        # Other packages not present in stackage snapshot
         ########################################################################
         ref-tf = overrideCabal super.ref-tf (drv: {
           version = "0.4";
@@ -114,10 +112,15 @@ let inherit (nixpkgs.haskell) lib;
           version = "0.6.1.0";
         });
         ghcjs-dom = overrideCabal super.ghcjs-dom (drv: {
-          version = "0.2.2.0";
-          sha256 = "1r94rj3i6y0zpysa48di4ndmy4whkr73aqa2c50wifmnks03n2gk";
-          doCheck = false;
+          version = "0.2.3.0";
         });
+
+
+        # FIXME: snapshots lts-3.10 and some bellow use hfsevents = hfsevents_0_1_5 which does not add the necessary build tool for darwin.
+        # as done in configuration-common... same happends with hmatrix and others
+
+        # hfsevents = with nixpkgs.darwin.apple_sdk.frameworks; addBuildTool (addBuildDepends super.hfsevents [Cocoa]) CoreServices;
+
       };
     };
 in rec {
