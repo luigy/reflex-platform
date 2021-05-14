@@ -202,6 +202,20 @@ let iosSupport = system == "x86_64-darwin";
     ]);
   };
   ghcjs = ghcjs8_6;
+  # TODO: Get src from haskell.nix
+  ghcjs8_10 = (makeRecursivelyOverridable (nixpkgsCross.ghcjs.haskell.packages.ghcjs86.override (old: {
+    ghc = old.ghc.override {
+      bootPkgs = nixpkgsCross.ghcjs.buildPackages.haskell.packages.ghc865;
+      ghcjsSrc = fetchgit {
+        url = "https://github.com/obsidiansystems/ghcjs.git";
+        rev = "a00ecf0b2eaddbc4101c76e6ac95fc97b0f75840"; # ghc-8.6 branch
+        sha256 = "06cwpijwhj4jpprn07y3pkxmv40pwmqqw5jbdv4s7c67j5pmirnc";
+        fetchSubmodules = true;
+      };
+    };
+  }))).override {
+    overrides = nixpkgsCross.ghcjs.haskell.overlays.combined;
+  };
   ghcjs8_6 = (makeRecursivelyOverridable (nixpkgsCross.ghcjs.haskell.packages.ghcjs86.override (old: {
     ghc = old.ghc.override {
       bootPkgs = nixpkgsCross.ghcjs.buildPackages.haskell.packages.ghc865;
@@ -229,6 +243,9 @@ let iosSupport = system == "x86_64-darwin";
     overrides = nixpkgs.haskell.overlays.combined;
   };
   ghc8_6 = (makeRecursivelyOverridable nixpkgs.haskell.packages.ghc865).override {
+    overrides = nixpkgs.haskell.overlays.combined;
+  };
+  ghc8_10 = (makeRecursivelyOverridable nixpkgs.haskell.packages.ghc8103).override {
     overrides = nixpkgs.haskell.overlays.combined;
   };
 
@@ -304,6 +321,7 @@ in let this = rec {
           ghc
           ghcHEAD
           ghc8_6
+          ghc8_10
           ghcIosSimulator64
           ghcIosAarch64
           ghcIosAarch64-8_6

@@ -49,12 +49,12 @@ rec {
     (optionalExtension (!(super.ghc.isGhcjs or false)) combined-ghc)
     (optionalExtension (super.ghc.isGhcjs or false) combined-ghcjs)
 
-    (optionalExtension (super.ghc.isGhcjs or false && useTextJSString) textJSString)
-    (optionalExtension (with nixpkgs.stdenv; versionWildcard [ 8 6 ] super.ghc.version && !(super.ghc.isGhcjs or false) && hostPlatform != buildPlatform) loadSplices)
+    # (optionalExtension (super.ghc.isGhcjs or false && useTextJSString) textJSString)
+    # (optionalExtension (with nixpkgs.stdenv; versionWildcard [ 8 6 ] super.ghc.version && !(super.ghc.isGhcjs or false) && hostPlatform != buildPlatform) loadSplices)
 
-    (optionalExtension (nixpkgs.stdenv.hostPlatform.useAndroidPrebuilt or false) android)
-    (optionalExtension (nixpkgs.stdenv.hostPlatform.isiOS or false) ios)
-    (optionalExtension (nixpkgs.stdenv.hostPlatform.isWasm or false) wasm)
+    # (optionalExtension (nixpkgs.stdenv.hostPlatform.useAndroidPrebuilt or false) android)
+    # (optionalExtension (nixpkgs.stdenv.hostPlatform.isiOS or false) ios)
+    # (optionalExtension (nixpkgs.stdenv.hostPlatform.isWasm or false) wasm)
 
     user-custom-post
   ] self super;
