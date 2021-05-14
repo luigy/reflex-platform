@@ -28,12 +28,12 @@ in
   ##
 
   # TODO: Fix hlint build errors.
-  reflex = dontCheck (self.callCabal2nixWithOptions "reflex" self._dep.reflex (lib.concatStringsSep " " (lib.concatLists [
+  reflex = self.callCabal2nixWithOptions "reflex" self._dep.reflex (lib.concatStringsSep " " (lib.concatLists [
     (lib.optional enableTraceReflexEvents "-fdebug-trace-events")
     reflexOptimizerFlag
     useTemplateHaskellFlag
     (lib.optional useFastWeak "-ffast-weak")
-  ])) {});
+  ])) {};
 
   reflex-todomvc = self.callPackage self._dep.reflex-todomvc {};
   reflex-aeson-orphans = self.callCabal2nix "reflex-aeson-orphans" self._dep.reflex-aeson-orphans {};
@@ -51,7 +51,8 @@ in
     ])) {})
     (drv: {
       # TODO: Get hlint working for cross-compilation
-      doCheck = stdenv.hostPlatform == stdenv.buildPlatform && !(ghc.isGhcjs or false);
+      # TODO: Fix hlint test
+      doCheck = false; # stdenv.hostPlatform == stdenv.buildPlatform && !(ghc.isGhcjs or false);
 
       # The headless browser run as part of the tests will exit without this
       preBuild = ''
