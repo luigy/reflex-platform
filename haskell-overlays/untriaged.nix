@@ -35,7 +35,7 @@ in self: super: {
   # constrained-dynamic = self.callHackage "constrained-dynamic" "0.1.0.0" {};
   # hsimport = doJailbreak (self.callHackage "hsimport" "0.10.0" {});
   # webkit2gtk3-javascriptcore = self.callHackage "webkit2gtk3-javascriptcore" "0.14.2.1" {};
-  # haskell-gi = self.callHackage "haskell-gi" "0.22.6" {};
+  haskell-gi = self.callHackage "haskell-gi" "0.22.6" {};
 
   # # Snap and deps are marked broken in 19.03 but needed by obelisk
   # snap = self.callHackage "snap" "1.1.2.0" {};
