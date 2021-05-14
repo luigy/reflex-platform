@@ -2,6 +2,7 @@
   "owner": "dmwit",
   "repo": "universe",
   "branch": "master",
-  "rev": "a0ef0ec6fd0750725a7e63734829b44f54cfcbe2",
-  "sha256": "10cdjh42k9kzbwdvvl7hv9v1mnlx06swhl8y8zsqjd0rpnabfpm2"
+  "private": false,
+  "rev": "3a63cca98c313db47b82a3ec5ac11b1e72f48758",
+  "sha256": "0a10kzminsq5v9akhhf3bfk715jr5v5nmaaiybv2jggg361jh31p"
 }
