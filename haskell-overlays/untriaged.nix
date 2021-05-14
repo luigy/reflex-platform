@@ -44,7 +44,7 @@ in self: super: {
 
   # # Fixing things that are marked broken in 19.09:
   # brittany = dontCheck (self.callHackage "brittany" "0.12.0.0" {});
-  # witherable = self.callHackage "witherable" "0.3.1" {};
+  witherable = self.callHackage "witherable" "0.3.5" {};
   # time-compat = dontCheck super.time-compat;
   # bimap = self.callHackage "bimap" "0.3.3" {};
 
