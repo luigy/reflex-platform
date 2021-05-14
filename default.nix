@@ -238,7 +238,7 @@ let iosSupport = system == "x86_64-darwin";
     overrides = nixpkgsCross.wasm.haskell.overlays.combined;
   });
 
-  ghc = ghc8_6;
+  ghc = ghc8_10;
   ghcHEAD = (makeRecursivelyOverridable nixpkgs.haskell.packages.ghcHEAD).override {
     overrides = nixpkgs.haskell.overlays.combined;
   };
